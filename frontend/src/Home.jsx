@@ -1,17 +1,16 @@
 import React from 'react'
 import { Box, Stack } from "@chakra-ui/react"
 import Card from './Card'
-import axios from "axios";
-
+import api from './utility/api'
 
 const Home = () => {
 
 
     const checkoutHandler = async (amount) => {
 
-        const { data: { key } } = await axios.get("http://www.localhost:4000/api/getkey")
+        const { data: { key } } = await api.get("/api/getkey")
 
-        const { data: { order } } = await axios.post("http://localhost:4000/api/checkout", {
+        const { data: { order } } = await api.post("/api/checkout", {
             amount
         })
 
@@ -23,7 +22,7 @@ const Home = () => {
             description: "Paying to this will give you the tickets for the Event",
             image: "https://avatars.githubusercontent.com/u/114233607?s=96&v=4",
             order_id: order.id,
-            callback_url: "http://localhost:4000/api/paymentverification",
+            callback_url: "/api/paymentverification",
             prefill: {
                 name: "Gaurav Kumar",
                 email: "gaurav.kumar@example.com",
